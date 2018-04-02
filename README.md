@@ -2,6 +2,23 @@
 
 _Tool used to create the raspberrypi.org Raspbian images_
 
+## YunoHost notes
+
+This branch keeps the stage 0, 1 and 2 to build a lite raspbian image,
+then stage 3 corresponds to the YunoHost install.
+
+The build was found to run correctly with :
+- A 2 GB Digital Ocean VPS running Ubuntu Xenial 16.04 x64
+- debootstrap 1.0.93 (c.f. https://packages.debian.org/buster/all/debootstrap/download )
+- qemu-user-static 2.8 (c.f. https://packages.debian.org/stretch/amd64/qemu-user-static/download )
+
+To run the build, git clone this repo/branch, install the dependencies, then run :
+
+```
+export IMG_NAME="yunohost"
+export USE_QEMU="1"
+./build.sh
+```
 
 ## Dependencies
 
