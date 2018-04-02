@@ -8,4 +8,8 @@ chmod +x /tmp/install_yunohost
 rm -f /etc/ssh/ssh_host_*
 apt-get clean
 find /var/log -type f -exec rm {} \;
+touch /boot/ssh
+sed -i '/PermitRootLogin/c\PermitRootLogin yes' /etc/ssh/sshd_config
+echo "root:yunohost" | chpasswd
+chage -d 0 root
 EOF
