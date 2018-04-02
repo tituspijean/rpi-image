@@ -55,3 +55,10 @@ usermod --pass='*' root
 EOF
 
 rm -f ${ROOTFS_DIR}/etc/ssh/ssh_host_*_key*
+
+
+# Dirty hack, ... otherwise the build script says in the next step that it cant
+# install wpasupplicant...
+on_chroot << EOF
+apt-get update
+EOF
