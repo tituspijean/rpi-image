@@ -21,12 +21,14 @@ echo "Cleaning ..."
 on_chroot << EOF
 apt-get clean
 find /var/log -type f -exec rm {} \;
+ps -ef --forest | grep qemu
 EOF
 
 # Gotta manually kill those stuff which are some sort of daemon running
 # for slapd / nscd / nslcd ... otherwise the script is unable to unmount
 # the rootfs/image after that ?
-for PID in `ps -ef --forest | awk '$8=="/usr/bin/qemu-arm-static" {print $2}'`
+for PID in `ps -ef --forest | grep "qemu-arm-static" | grep "nginx\|nscd\|slapd\|nslcd" | awk '{print $2}'`
 do
+        echo "Killing $PID"
         kill -9 $PID
 done
