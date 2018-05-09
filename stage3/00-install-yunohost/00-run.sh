@@ -17,6 +17,8 @@ echo "root:yunohost" | chpasswd
 chage -d 0 root
 EOF
 
+install -m 755 files/check_yunohost_is_installed.sh "${ROOTFS_DIR}/etc/profile.d/"
+
 echo "Cleaning ..."
 on_chroot << EOF
 apt-get clean
