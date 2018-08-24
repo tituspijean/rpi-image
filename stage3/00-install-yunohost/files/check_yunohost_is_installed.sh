@@ -1,6 +1,13 @@
 #!/bin/sh
 
 if [ -n "$BASH_VERSION" ] && [ "$-" != "${-#*i}" ]; then
+
+    # Trigger resize2fs_once in case it wasnt triggered so far ...
+    if [ -f "/etc/init.d/resize2fs_once" ];
+    then
+        systemctl restart resize2fs_once
+    fi
+
     if [ ! -f "/etc/yunohost/installed" ];
     then
         normal=$(printf '\033[0m')
