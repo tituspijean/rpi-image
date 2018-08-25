@@ -11,6 +11,7 @@ The build was found to run correctly with :
 - A 2 GB Digital Ocean VPS running Ubuntu Xenial 16.04 x64
 - debootstrap 1.0.93 (c.f. https://packages.debian.org/buster/all/debootstrap/download )
 - qemu-user-static 2.8 (c.f. https://packages.debian.org/stretch/amd64/qemu-user-static/download )
+- `modprobe binfmt_misc` if there are some issue with debootstrap
 
 To run the build, git clone this repo/branch, install the dependencies, then run :
 
