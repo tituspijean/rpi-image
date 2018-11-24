@@ -18,7 +18,10 @@ bootstrap(){
 	capsh --drop=cap_setfcap -- "${BOOTSTRAP_CMD}" --components=main,contrib,non-free \
 		--arch armhf \
 		--keyring "${STAGE_DIR}/files/raspberrypi.gpg" \
-		"$1" "$2" "$3" || rmdir "$2/debootstrap"
+		"$1" "$2" "$3" || true
+	if [ -d "$2/debootstrap" ]; then
+		rmdir "$2/debootstrap"
+	fi
 }
 export -f bootstrap
 
@@ -85,14 +88,14 @@ on_chroot() {
 		mount --bind /sys "${ROOTFS_DIR}/sys"
 	fi
 
-	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- "$@"
+	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- -e "$@"
 }
 export -f on_chroot
 
 update_issue() {
 	local GIT_HASH
 	GIT_HASH=$(git rev-parse HEAD)
-	echo -e "Raspberry Pi reference ${IMG_DATE}\nGenerated using pi-gen, https://github.com/RPi-Distro/pi-gen, ${GIT_HASH}, ${1}" > "${ROOTFS_DIR}/etc/rpi-issue"
+	echo -e "YunoHost image for Raspberry Pi\nGenerated using https://github.com/YunoHost/rpi-image, ${GIT_HASH}, ${1}" > "${ROOTFS_DIR}/etc/rpi-issue"
 }
 export -f update_issue
 
