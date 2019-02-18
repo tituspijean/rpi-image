@@ -12,13 +12,14 @@ The build was found to run correctly with :
 - debootstrap 1.0.93 (c.f. https://packages.debian.org/buster/all/debootstrap/download )
 - qemu-user-static 2.8 (c.f. https://packages.debian.org/stretch/amd64/qemu-user-static/download )
 - `modprobe binfmt_misc` if there are some issue with debootstrap
+- Gotta install docker-ce ... following the official doc :s
 
 To run the build, git clone this repo/branch, install the dependencies, then run :
 
 ```
 export IMG_NAME="yunohost"
 export USE_QEMU="1"
-./build.sh
+./build-docker.sh
 ```
 
 ## Dependencies
