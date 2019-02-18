@@ -12,7 +12,7 @@ EOF
 
 # Run the actual install
 on_chroot << EOF
-apt-get install insserv -y
+apt-get install insserv resolvconf -y
 curl https://install.yunohost.org/stretch | bash -s -- -a
 rm -f /etc/ssh/ssh_host_*
 EOF
