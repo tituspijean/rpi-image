@@ -1,5 +1,13 @@
 #!/bin/bash -e
 
+# Prevent dhcp setting the "search" thing in /etc/resolv.conf, leads to many
+# weird stuff (e.g. with numericable) where any domain will ping >.>
+on_chroot << EOF
+echo 'supersede domain-name "";'   >> /etc/dhcp/dhclient.conf
+echo 'supersede domain-search "";' >> /etc/dhcp/dhclient.conf
+echo 'supersede search "";       ' >> /etc/dhcp/dhclient.conf
+EOF
+
 # Avahi and mysql/mariadb needs to do some stuff which conflicts with
 # the "change the root password asap" so we disable it. In fact, now
 # that YunoHost 3.3 syncs the password with admin password at
