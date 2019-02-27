@@ -8,6 +8,12 @@ echo 'supersede domain-search "";' >> /etc/dhcp/dhclient.conf
 echo 'supersede search "";       ' >> /etc/dhcp/dhclient.conf
 EOF
 
+# Disable those damn supposedly "predictive" interface names
+# c.f. https://unix.stackexchange.com/a/338730
+on_chroot << EOF
+ln -s /dev/null /etc/systemd/network/99-default.link
+EOF
+
 # Avahi and mysql/mariadb needs to do some stuff which conflicts with
 # the "change the root password asap" so we disable it. In fact, now
 # that YunoHost 3.3 syncs the password with admin password at
